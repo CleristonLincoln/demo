@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Teste</title>
+<body data-ng-app="myApp">
+	<h1>Gestor</h1>
+	<form ng-controller="gestorController">
+
+		<label>Descricao</label> <input type="text"
+			ng-model="gestor.descricao"> <br>
+		<button type="button" data-ng-click="create(gestor)">Create</button>
+		<br><label for="assunt">Programa </label> <select
+			data-ng-model="gestor.programa.id">
+			<option data-ng-repeat="fatura in programa" value="{{fatura.id}}">{{fatura.descricao}}</option>
+		</select>{{areaa}}
+		<br>
+		<table border="1">
+			<tr>
+				<th>Id</th>
+				<th>Descricao</th>
+				<th>Programa</th>
+
+			</tr>
+			<tr data-ng-repeat="gestor in lista">
+				<td>{{gestor.id}}</td>
+				<td>{{gestor.descricao}}</td>
+				<td>{{gestor.programa.descricao}}</td>
+				
+
+				<td>
+					<button type="button" data-ng-click="alterar(gestor)">Alterar</button>
+					<button type="button" data-ng-click="deletar(gestor)">Excluir</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	<script src="./js/angular.min.js"></script>
+
+	<script src="./js/app9.js"></script>
+</body>
+</html>
