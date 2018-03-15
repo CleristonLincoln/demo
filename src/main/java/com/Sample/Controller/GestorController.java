@@ -37,11 +37,28 @@ public class GestorController {
 		return programaService.findAll();
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ResponseEntity<?> create(@RequestBody Gestor areaa) {
-		gestorService.save(areaa);
-		return new ResponseEntity<>(areaa, HttpStatus.OK);
+	//@RequestMapping(value = "/", method = RequestMethod.POST)
+	//public ResponseEntity<?> create(@RequestBody Gestor areaa) {
+	//	gestorService.save(areaa);
+	//	return new ResponseEntity<>(areaa, HttpStatus.OK);
+	//}
+	
+	@PostMapping
+	public ResponseEntity<Gestor> ceatate(@RequestBody Gestor gestor,  HttpServletResponse response){
+		Gestor gestorSalvo = gestorService.save(gestor);
+		
+		//pega a uri atual e vincula o que esta sendo enviado com os atributos em sua entity
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
+		              .buildAndExpand(id).toUri();
+		
+		// retorna a URI com o id para futuros acessos
+		response.addHeader("Location", uri.toASCIIString());
+		
+		// informa que o post foi feico com sucesso e retorna o que foi enviado
+		return ResponseEntity.created(uri).body(gestorSalvo);	
+		
 	}
+	
 
 	@PutMapping
 	public ResponseEntity<?> updd(@RequestBody Gestor departamento) {
